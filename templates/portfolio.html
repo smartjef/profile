@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Portfolio{% endblock %}
+
+{% block content %}
+<h1 class="fw-bold text-secondary mt-5 text-center">Portfolio</h1>
+<p class="text-muted w-lg-50 text-center">Here are some of the projects i have worked on, they can be found on my github page or live through the links provided</p>
+<div class="container pt-0 mt-0">
+    <div class="col-lg-7 mx-auto">
+        <div class="position-relative" style="display: flex;flex-wrap: wrap;justify-content: flex-end;">
+            <div style="position: relative;flex: 0 0 45%;transform: translate3d(-15%, 35%, 0);"><img class="img-fluid" data-bss-parallax data-bss-parallax-speed="0.8" src="{% static 'assets/img/products/3.png' %}" /></div>
+            <div style="position: relative;flex: 0 0 45%;transform: translate3d(-5%, 20%, 0);"><img class="img-fluid" data-bss-parallax data-bss-parallax-speed="0.4" src="{% static 'assets/img/products/2.png' %}" /></div>
+            <div style="position: relative;flex: 0 0 60%;transform: translate3d(0, 0%, 0);"><img class="img-fluid" data-bss-parallax data-bss-parallax-speed="0.25" src="{% static 'assets/img/products/1.png' %}" /></div>
+        </div>
+    </div>
+</div>
+<section class="py-5">
+    <div class="container py-5">
+        <div class="row row-cols-1 row-cols-md-2 mx-auto" style="max-width: 900px;">
+            {% if portfolios %}
+                {% for portfolio in portfolios %}
+                <div class="col mb-4">
+                    <div>
+                        {% if portfolio.image %}
+                            <a href="{% if portfolio.github_url %}{{portfolio.github_url}}{% endif %}">
+                                <img class="rounded img-fluid shadow w-100 fit-cover" src="{{portfolio.image.url}}" style="height: 250px;">
+                            </a>
+                        {% endif %}
+                        <div class="py-4">
+                            {% if portfolio.github_url %}
+                                <span class="badge bg-primary mb-2"><a href="{{portfolio.github_url}}" class="text-white">github</a></span>
+                            {% endif %}
+                            {% if portfolio.live_url %}
+                                <span class="badge bg-secondary mb-2"><a href="{{portfolio.live_url}}" class="text-white">live</a></span>
+                            {% endif %}
+                            <h4 class="fw-bold">{{portfolio.title}}</h4>
+                            <p class="text-muted">{{portfolio.description|linebreaks}}</p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            {% endif %}
+            </div>
+        </div>
+</section>
+<section class="photo-gallery py-4 py-xl-5">
+    <div class="container">
+        <div class="row gx-2 gy-2 row-cols-1 row-cols-md-2 row-cols-xl-3 photos" data-bss-baguettebox="">
+            {% if portfolios %}
+                {% for portfolio in portfolios %}
+                    {% if portfolio.image %}
+                        <div class="col item">
+                            <a href="{% if portfolio.live_url %}{{portfolio.live_url}}{% endif %}">
+                                <img class="img-fluid" src="{{portfolio.image.url}}">
+                            </a>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+{% endblock %}

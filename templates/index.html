@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Homepage{% endblock %}
+
+{% block content %}
+{% include 'partials/profile.html' %}
+<section>
+    <div class="container py-5"><div class="mx-auto" style="max-width: 900px;">
+        <div class="row row-cols-1 row-cols-md-2 d-flex justify-content-center">
+            <div class="col mb-4">
+                <div class="card bg-primary-light">
+                    <div class="card-body text-center px-4 py-5 px-md-5">
+                        <p class="fw-bold text-primary card-text mb-2">Multi-System(SmartTech)</p>
+                        <h5 class="fw-bold card-title mb-3">It contains E-School, ECommerce, Blogging, Voting, and CV-Generator</h5>
+                        <a href="https://whispering-bayou-71399.herokuapp.com/" class="btn btn-primary btn-sm nav-link text-white">view</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col mb-4">
+                <div class="card bg-secondary-light">
+                    <div class="card-body text-center px-4 py-5 px-md-5">
+                        <p class="fw-bold text-secondary card-text mb-2">Church-System(ARS)</p>
+                        <h5 class="fw-bold card-title mb-3">Manages church resources, events and users</h5>
+                        <a href="http://20.196.152.132/" class="btn btn-secondary btn-sm nav-link text-white">view</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col mb-4">
+                <div class="card bg-info-light">
+                    <div class="card-body text-center px-4 py-5 px-md-5">
+                        <p class="fw-bold text-info card-text mb-2">Photography(Donmax)</p>
+                        <h5 class="fw-bold card-title mb-3">Manages Media(Photos & Videos), occassions, appointments etc</h5>
+                        <a href="http://20.196.152.132:8000/" class="btn btn-info btn-sm nav-link text-white">view</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+<section class="py-5 mt-5">
+    <div class="container py-5">
+        <div class="row mb-5">
+            <div class="col-md-8 col-xl-6 text-center mx-auto">
+                <h2 class="fw-bold"><strong>What People Say About Me</strong></h2>
+                <p class="text-muted w-lg-50">No matter the design, logic or project, I can handle it.&nbsp;</p>
+            </div>
+        </div>
+        {% if reviews %}
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 d-sm-flex justify-content-sm-center">
+            {% for review in reviews %}
+            <div class="col mb-4">
+                <div class="d-flex flex-column align-items-center align-items-sm-start">
+                    <p class="bg-light border rounded border-light small p-4">{{review.message|truncatechars:100}}</p>
+                    <div class="d-flex">
+                        <img class="rounded-circle flex-shrink-0 me-3 fit-cover" width="50" height="50" src="{% if review.image %}{{review.image.url}}{% else %}{% static 'assets/img/products/1.png' %}{% endif %}">
+                        <div>
+                            <p class="fw-bold text-primary mb-0">{{review.name}}</p>
+                            <p class="text-muted mb-0">{{review.position}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        <a href="{% url 'leave_review' %}" class="nav-link mt-4 text-secondary fw-bold"><p class="text-center">Leave a review</p></a>
+    </div>
+</section>
+{% endblock %}

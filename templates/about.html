@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}About{% endblock %}
+
+{% block content %}
+<h1 class="fw-bold text-secondary mt-5 text-center">About Me</h1>
+{% if about %}
+    {% for abt in about %}
+        <section class="pb-5" id="background">
+            <div class="container py-3 shadow-sm">
+                <div class="row justify-content-center align-items-center">
+                    {% if abt.image %}
+                        <div class="col-md-4">
+                            <img src="{{ abt.image.url }}" class="img-fluid" alt="{{abt.title}}">
+                        </div>
+                    {% endif %}
+                    <div class="col-md-8">
+                        <h2 class="fw-bold text-secondary mt-5">{{ abt.title }}</h2>
+                        <p class="text-secondary">{{ abt.description|linebreaks}}</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    {% endfor %}
+{% endif %}
+{% endblock %}
